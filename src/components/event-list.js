@@ -23,6 +23,6 @@ export default class EventList extends HTMLElement {
                         </single-event></div>`;
         }).join("");
 
-        this.innerHTML = `<h2>Events</h2>${list}`;
+        this.innerHTML = `<h2>DATES</h2>${list}`;
     }
 }

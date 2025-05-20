@@ -8,7 +8,7 @@ export default class Router extends HTMLElement {
         this.allRoutes = {
             "": {
                 view: "<event-list></event-list>",
-                name: "Dates",
+                name: "DATES",
             },
         };
     }

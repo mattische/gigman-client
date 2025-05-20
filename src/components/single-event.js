@@ -10,6 +10,6 @@ export default class SingleEvent extends HTMLElement {
 
     // connect component
     connectedCallback() {
-        this.innerHTML = `<h4>${this.event.event_date}</h4><p>Venue: ${this.event.venue_name}</p><p>Address: ${this.event.venue_address.lat}</p>`;
+        this.innerHTML = `<h4>${this.event.id} ${this.event.event_name}</h4><p>${this.event.event_date} Venue: ${this.event.venue_name}</p><p>Address: ${this.event.venue_address.lat}</p>`;
     }
 }
