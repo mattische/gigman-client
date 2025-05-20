@@ -1,0 +1,23 @@
+// style/container.scss
+@use 'variables' as *;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  padding: 0.5 * $magic-number;
+}
+
+body {
+  min-height: 100vh;
+  padding-bottom: 2 * $magic-number;
+}
+
+hr {
+  margin-top: 2 * $magic-number;
+  margin-bottom: $magic-number;
+}

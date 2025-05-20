@@ -1,0 +1,23 @@
+@use 'variables' as *;
+
+
+.single-event:nth-child(odd) {
+  background-color: $light-grey;
+}
+
+
+.single-event:nth-child(even) {
+  background-color: $blue-grey;
+}
+
+.single-event {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: $magic-number *0.5;
+  margin: 0;
+
+  p {
+    margin-bottom: 0;
+  }
+}

@@ -1,0 +1,24 @@
+// style/navigation.scss
+
+@use 'variables' as *;
+@use "sass:color";
+
+
+.bottom-nav {
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+    padding-top: 0.5 * $magic-number;
+    padding-bottom: 0.5 * $magic-number;
+    background-color: $light-grey;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    font-family: $font-header;
+    border-bottom: 1px solid $almost-black;
+
+    a {
+      color: $almost-black;
+    }
+}

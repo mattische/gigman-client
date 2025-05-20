@@ -1,0 +1,40 @@
+{
+  "name": "gigman-client",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/mattische/gigman-client#readme",
+  "bugs": {
+    "url": "https://github.com/mattische/gigman-client/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattische/gigman-client.git"
+  },
+  "license": "MIT",
+  "author": "mattische",
+  "main": "index.js",
+  "scripts": {
+    "style": "sass base.scss style.css --no-source-map",
+    "style-min": "sass base.scss style.min.css  --no-source-map --style compressed",
+    "watch": "sass base.scss style.css --no-source-map --watch",
+    "watch-min": "sass base.scss style.min.css --no-source-map --watch --style compressed",
+    "test": "echo \"Implement later\" && exit 0",
+    "start": "http-server .",
+    "posttest": "npm run eslint && npm run stylelint && npm run htmlhint",
+    "eslint": "eslint",
+    "eslint:fix": "eslint --fix",
+    "stylelint": "stylelint \"**/*.css\"",
+    "stylelint:fix": "stylelint --fix \"**/*.css\"",
+    "htmlhint": "htmlhint \"**/*.html\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "eslint": "^9.18.0",
+    "globals": "^15.14.0",
+    "htmlhint": "^1.1.4",
+    "http-server": "^14.1.1",
+    "sass": "^1.86.3",
+    "stylelint": "^16.13.2",
+    "stylelint-config-standard": "^37.0.0"
+  }
+}

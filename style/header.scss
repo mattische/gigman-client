@@ -1,0 +1,9 @@
+// style/header.scss
+@use 'variables' as *;
+
+.header {
+  background-color: $header-color;
+  color: $white;
+  padding: 0.5 * $magic-number;
+  border-bottom: 1px solid $almost-black;
+}
