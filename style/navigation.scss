@@ -6,19 +6,20 @@
 
 .bottom-nav {
     position: fixed;
-    top: 0;
+    bottom: 0;
     overflow: hidden;
     width: 100%;
     padding-top: 0.5 * $magic-number;
     padding-bottom: 0.5 * $magic-number;
-    background-color: $light-grey;
+    background-color: $almost-black;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-evenly;
     font-family: $font-header;
+    color: $dark-grey;
     border-bottom: 1px solid $almost-black;
 
     a {
-      color: $almost-black;
+      color: $almost-white;
     }
 }
