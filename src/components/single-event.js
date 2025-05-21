@@ -5,11 +5,20 @@ export default class SingleEvent extends HTMLElement {
     }
 
     get event() {
-        return JSON.parse(this.getAttribute("event"));
+        // decode the data from base64
+        // and parse it to json
+        return JSON.parse(atob(this.getAttribute("event")));
     }
 
     // connect component
     connectedCallback() {
-        this.innerHTML = `<h4>${this.event.id} ${this.event.event_name}</h4><p>${this.event.event_date} Venue: ${this.event.venue_name}</p><p>Address: ${this.event.venue_address.lat}</p>`;
+        this.innerHTML = `<div class="event-left-box">
+                            ${this.event.id} 
+                            ${this.event.event_date}
+                          </div>
+                          <div class="event-right-box">
+                            ${this.event.event_name} 
+                             Venue: ${this.event.venue_name}
+                          </div>`;
     }
 }

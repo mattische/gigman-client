@@ -1,4 +1,4 @@
-import { apiKey, baseURL } from "../utils.js";
+import { baseURL } from "../utils.js";
 
 export default class EventList extends HTMLElement {
     constructor() {
@@ -19,8 +19,12 @@ export default class EventList extends HTMLElement {
 
     render() {
         const list = this.events.map((event) => {
-            return `<div class="single-event"><single-event event='${JSON.stringify(event)}'>
-                        </single-event></div>`;
+            // might contain special characters and html characters
+            // so we need to encode the data in base64
+            const encodeData = btoa(JSON.stringify(event));
+            return `<div class="single-event">
+                        <single-event event='${encodeData}'></single-event>
+                    </div>`;
         }).join("");
 
         this.innerHTML = `<h2>DATES</h2>${list}`;

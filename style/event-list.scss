@@ -10,14 +10,26 @@
   background-color: $blue-grey;
 }
 
-.single-event {
+.single-event, single-event {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
   padding: $magic-number *0.5;
-  margin: 1rem;
+  margin: 0;
+  font-family: $font-body;
+  font-size: $body-font-size;
 
   p {
     margin-bottom: 0;
+  }
+
+  .event-left-box {
+    flex: 0 0 auto;
+    margin-right: $magic-number;
+    width: 20%;
+  }
+
+  .event-right-box {
+    flex: 1; // Tar upp resterande utrymme
   }
 }
