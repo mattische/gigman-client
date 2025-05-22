@@ -7,6 +7,7 @@
 .bottom-nav {
     position: fixed;
     bottom: 0;
+    left: 0;
     overflow: hidden;
     width: 100%;
     padding-top: 0.5 * $magic-number;
@@ -16,10 +17,21 @@
     flex-flow: row nowrap;
     justify-content: space-evenly;
     font-family: $font-header;
-    color: $dark-grey;
-    border-bottom: 1px solid $almost-black;
+    color: $almost-white;
+    z-index: 1000;
 
     a {
       color: $almost-white;
+      text-decoration: none;
+    }
+
+    a:active {
+      color: $green;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: $green;
+      text-decoration: none;
     }
 }

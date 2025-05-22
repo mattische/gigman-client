@@ -2,8 +2,27 @@
 @use 'variables' as *;
 
 .header {
-  background-color: $header-color;
-  color: $white;
-  padding: 0.5 * $magic-number;
+  top: 0;
+  position: fixed;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 0.5 * $magic-number;
+  padding-bottom: 0.5 * $magic-number;
+  background-color: $almost-black;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  font-family: $font-header;
+  color: $almost-white;
   border-bottom: 1px solid $almost-black;
+  z-index: 1000;
+
+  a {
+    color: $almost-white;
+  }
+  a:active {
+    color: $green;
+    text-decoration: none;
+  }
 }

@@ -12,7 +12,10 @@ export default class EventList extends HTMLElement {
         const response = await fetch(`${baseURL}/collections/events`);
         const result = await response.json();
 
-        this.events = result.data;
+        //sort the events by date
+        this.events = result.data.sort((a, b) => {
+            return new Date(a.event_date) - new Date(b.event_date);
+        });
         
         this.render();
     }
@@ -27,6 +30,6 @@ export default class EventList extends HTMLElement {
                     </div>`;
         }).join("");
 
-        this.innerHTML = `<h2>DATES</h2>${list}`;
+        this.innerHTML = `${list}`;
     }
 }

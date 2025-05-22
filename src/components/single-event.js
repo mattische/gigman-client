@@ -1,3 +1,5 @@
+import { getDateAsDay, getDateAsMonth, getDateAsDayNumber } from '../helpers/date-formatter.js';
+
 export default class SingleEvent extends HTMLElement {
     // component attributes
     static get observedAttributes() {
@@ -12,13 +14,19 @@ export default class SingleEvent extends HTMLElement {
 
     // connect component
     connectedCallback() {
+        const eventDay = getDateAsDay(this.event.event_date);
+        const eventMonth = getDateAsMonth(this.event.event_date);
+        const eventDayNumber = getDateAsDayNumber(this.event.event_date);
+
         this.innerHTML = `<div class="event-left-box">
-                            ${this.event.id} 
-                            ${this.event.event_date}
+                            ${eventDay}
+                            <h4>${eventDayNumber}</h4>
+                            ${eventMonth}
                           </div>
                           <div class="event-right-box">
-                            ${this.event.event_name} 
-                             Venue: ${this.event.venue_name}
+                            <h5>${this.event.event_name}</h5> 
+                             ${this.event.venue_name}
+                             ${this.event.venue_city}
                           </div>`;
     }
 }
