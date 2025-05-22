@@ -10,6 +10,10 @@ export default class Router extends HTMLElement {
                 view: "<event-list></event-list>",
                 name: "DATES",
             },
+            "crew": {
+                view: "<event-list></event-list>",
+                name: "CREW",
+            },
         };
     }
 

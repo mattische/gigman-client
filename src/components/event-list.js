@@ -1,4 +1,6 @@
-import { baseURL } from "../utils.js";
+//import { baseURL } from "../utils.js";
+import { Event } from "../model/event.js";
+import { getFutureDatesFromArray } from "../helpers/date-formatter.js";
 
 export default class EventList extends HTMLElement {
     constructor() {
@@ -9,14 +11,11 @@ export default class EventList extends HTMLElement {
 
     // connect component
     async connectedCallback() {
-        const response = await fetch(`${baseURL}/collections/events`);
-        const result = await response.json();
-
-        //sort the events by date
-        this.events = result.data.sort((a, b) => {
-            return new Date(a.event_date) - new Date(b.event_date);
-        });
-        
+        this.evt = new Event();
+        const result = await this.evt.fetchAllEvents();
+       
+       const futureEvents = getFutureDatesFromArray(result);
+        this.events = futureEvents;
         this.render();
     }
 
