@@ -1,8 +1,10 @@
-import { baseURL } from "../utils.js";
+import { baseURL } from '../utils.js';
 
-class Event {
+export class EventModel {
   constructor() {
     this.events = [];
+    
+
   }
 
   sortEventsByDate(data) {
@@ -52,4 +54,3 @@ class Event {
   }
 
 }
-export { Event };

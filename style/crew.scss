@@ -1,0 +1,28 @@
+@use 'variables' as *;
+
+crew-list {
+  margin-top: 200px;
+
+  margin-left: $magic-number * 0.5;
+  
+  padding-left: $magic-number *0.5;
+  
+  font-family: $font-body;
+  font-size: $body-font-size;
+  background-color: $almost-white-2;
+  
+    .single-crew {
+        padding-left: $magic-number *0.5;
+        border-bottom: 1px solid $almost-black;
+        margin-bottom: $magic-number * 0.5;
+        p {
+            padding-left: $magic-number * 2;
+        }
+
+        h4, h5, p {
+            padding-left: $magic-number * 0.5;
+            margin-top: auto;
+            margin-bottom: 4px;
+        }
+    }
+}

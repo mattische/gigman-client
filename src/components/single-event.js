@@ -25,8 +25,8 @@ export default class SingleEvent extends HTMLElement {
                           </div>
                           <div class="event-right-box">
                             <h5>${this.event.event_name}</h5> 
-                             ${this.event.venue_name}
-                             ${this.event.event_date}
+                             ${this.event.venue_name} <br>
+                             ${this.event.event_type}
                           </div>`;
     }
 }

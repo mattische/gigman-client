@@ -11,8 +11,12 @@ export default class Router extends HTMLElement {
                 name: "DATES",
             },
             "crew": {
-                view: "<event-list></event-list>",
+                view: "<crew-list></crew-list>",
                 name: "CREW",
+            },
+            "tour": {
+                view: "<event-list></event-list>",
+                name: "TOUR",
             },
         };
     }
