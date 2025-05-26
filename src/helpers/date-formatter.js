@@ -72,10 +72,11 @@ export function getFutureDatesFromArray(dates) {
  * @example if current date is between first and last elements; getPastDatesFromArray([{event_date: "2023-10-01T00:00:00Z"}, {event_date: "2022-10-01T00:00:00Z"}])
  * returns [{event_date: "2022-10-01T00:00:00Z"}]
  */
-export function getPastDates(str) {
-    const date = new Date(str);
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    //make it all uppercase
-    const pastDate = new Intl.DateTimeFormat('en-US', options).format(date);
-    return pastDate.toUpperCase();
+export function getPastDatesFromArray(dates) {
+    //remove future dates from incoming array with dates
+    const pastDates = dates.filter((date) => {
+        return new Date(date.event_date) < new Date();
+    });
+    console.log(pastDates);
+    return pastDates;
 }

@@ -3,8 +3,6 @@ import { baseURL } from '../utils.js';
 export class EventModel {
   constructor() {
     this.events = [];
-    
-
   }
 
   sortEventsByDate(data) {
@@ -26,8 +24,6 @@ export class EventModel {
     return data;
   }
 
-
-
   async fetchFutureEvents() {
     const response = await fetch(`${baseURL}/collections/events`);
     const result = await response.json();
@@ -43,7 +39,7 @@ export class EventModel {
   }
 
   async fetchPastEvents() {
-    const response = await fetch(`${baseURL}/collections/${this.name}?past=true`);
+    const response = await fetch(`${baseURL}/collections/events`);
     const result = await response.json();
     // remove future events
     this.data = this.data.filter((event) => {
@@ -52,5 +48,11 @@ export class EventModel {
 
     return result;
   }
-
+  
+  async fetchEventDetails(eventId) {
+    const response = await fetch(`${baseURL}/collections/events/${eventId}`);
+    const result = await response.json();
+    
+    return result;
+  }
 }

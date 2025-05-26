@@ -23,6 +23,7 @@ export default class EventList extends HTMLElement {
         const list = this.events.map((event) => {
             // possibly special characters and html characters
             const encodeData = btoa(JSON.stringify(event));
+            
             return `<div class="single-event">
                         <single-event event='${encodeData}'></single-event>
                     </div>`;

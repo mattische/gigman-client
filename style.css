@@ -22,20 +22,32 @@ hr {
 
 .bottom-nav {
   position: fixed;
-  top: 0;
+  bottom: 0;
+  left: 0;
   overflow: hidden;
   width: 100%;
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
-  background-color: #ccc;
+  background-color: #333;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-evenly;
   font-family: "Source Sans Pro", sans-serif;
-  border-bottom: 1px solid #333;
+  font-size: 0.85rem;
+  color: #eee;
+  z-index: 1000;
 }
 .bottom-nav a {
-  color: #333;
+  color: #eee;
+  text-decoration: none;
+}
+.bottom-nav a:active {
+  color: #2ecc40;
+  text-decoration: none;
+}
+.bottom-nav a:hover {
+  color: #2ecc40;
+  text-decoration: none;
 }
 
 html {
@@ -49,8 +61,10 @@ body {
 h1,
 h2,
 h3,
-h4 {
+h4,
+h5 {
   font-family: "Source Sans Pro", sans-serif;
+  margin-top: 1rem;
 }
 
 h1 {
@@ -65,6 +79,13 @@ h2 {
 h4 {
   font-size: 1.4rem;
   margin-bottom: 0;
+  margin-top: 0;
+}
+
+h5 {
+  font-size: 1rem;
+  margin-bottom: 0;
+  font-weight: bold;
 }
 
 p {
@@ -187,10 +208,28 @@ p {
   }
 }
 .header {
-  background-color: #468387;
-  color: #fff;
-  padding: 0.7rem;
+  top: 0;
+  position: fixed;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  background-color: #333;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #eee;
   border-bottom: 1px solid #333;
+  z-index: 1000;
+}
+.header a {
+  color: #eee;
+}
+.header a:active {
+  color: #2ecc40;
+  text-decoration: none;
 }
 
 .input {
@@ -286,4 +325,87 @@ orders-view {
   100% {
     transform: rotate(360deg);
   }
+}
+event-list {
+  margin-top: 200px;
+}
+
+.single-event:first-child {
+  margin-top: 0.7rem;
+}
+
+.single-event {
+  border-bottom: 1px solid #333;
+}
+
+.single-event, single-event {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 0.7rem;
+  margin: 0;
+  font-family: "Merriweather", sans-serif;
+  font-size: 1rem;
+  background-color: #f2f3f3;
+}
+.single-event p, single-event p {
+  margin-bottom: 0;
+}
+.single-event .event-left-box, single-event .event-left-box {
+  flex: 0 0 auto;
+  margin-right: 1.4rem;
+  width: 20%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.single-event .event-left-box h4, .single-event .event-left-box h5, .single-event .event-left-box p, single-event .event-left-box h4, single-event .event-left-box h5, single-event .event-left-box p {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+.single-event .event-left-box .booked, single-event .event-left-box .booked {
+  color: #333;
+  background-color: #93b197;
+}
+.single-event .event-right-box, single-event .event-right-box {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+.single-event .event-right-box h4, .single-event .event-right-box h5, .single-event .event-right-box p, single-event .event-right-box h4, single-event .event-right-box h5, single-event .event-right-box p {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+.single-event .event-right-box h5:first-child, single-event .event-right-box h5:first-child {
+  margin-top: 0;
+}
+
+crew-list {
+  margin-top: 200px;
+  margin-left: 0.7rem;
+  padding-left: 0.7rem;
+  font-family: "Merriweather", sans-serif;
+  font-size: 1rem;
+  background-color: #f2f3f3;
+}
+crew-list .single-crew {
+  padding-left: 0.7rem;
+  border-bottom: 1px solid #333;
+  margin-bottom: 0.7rem;
+}
+crew-list .single-crew p {
+  padding-left: 2.8rem;
+}
+crew-list .single-crew h4, crew-list .single-crew h5, crew-list .single-crew p {
+  padding-left: 0.7rem;
+  margin-top: auto;
+  margin-bottom: 4px;
 }

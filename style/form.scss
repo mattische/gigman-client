@@ -8,12 +8,13 @@
   line-height: $line-height;
   font-family: $font-body;
   display: block;
-  border: 1px solid #ccc;
-  border-radius: 0.2rem;
+  border: none;
+  
   padding: 0.5rem 0.5rem;
   box-sizing: border-box;
   width: 32rem;
   margin-bottom: $magic-number;
+  margin-top: 200px;
   background-color: $white;
 }
 

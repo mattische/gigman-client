@@ -23,10 +23,28 @@ export default class SingleEvent extends HTMLElement {
                             <h4>${eventDayNumber}</h4>
                             ${eventMonth}
                           </div>
-                          <div class="event-right-box">
+                          <div class="event-right-box" data-event-id="${this.event.id}">
                             <h5>${this.event.event_name}</h5> 
                              ${this.event.venue_name} <br>
-                             ${this.event.event_type}
+                             ${this.event.venue_address}
                           </div>`;
+        
+        // add event listener for click
+        this.querySelector('.event-right-box').addEventListener('click', (evt) => {
+            const eventId = evt.currentTarget.getAttribute('data-event-id');
+            console.log("Event ID clicked:", eventId);
+            location.hash = `#event-details/${eventId}`;
+            //this.viewEventDetails(eventId);
+        });
+    }
+
+    viewEventDetails(eventId) {
+        // this function can be used to view event details
+        // for example, redirect to a detailed event page
+        console.log("details for event:", eventId);
+        const eventDetails = document.createElement("event-details");
+        eventDetails.setAttribute("event-id", eventId);
+        this.innerHTML = "";
+        this.appendChild(eventDetails);
     }
 }
