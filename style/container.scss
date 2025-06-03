@@ -8,17 +8,30 @@
   box-sizing: border-box;
 }
 
-main {
+main, .main {
   padding: 0.5 * $magic-number;
   margin-top: 0.5 * $magic-number;
+  background-color: $black;
+  color: $white;
+  font-family: $font-body;
 }
 
 body {
   min-height: 100vh;
   padding-bottom: 2 * $magic-number;
+  background-color: black;
+  color: $white;
 }
 
 hr {
   margin-top: 2 * $magic-number;
   margin-bottom: $magic-number;
+}
+
+router-outlet {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  margin-top: 2.8rem;
 }

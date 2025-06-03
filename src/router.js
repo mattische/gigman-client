@@ -19,7 +19,7 @@ export default class Router extends HTMLElement {
                 name: "CREW",
             },
              "event-details": {
-                view: "<event-details event-id='$wildcard'></event-details>",
+                view: "<event-details-view event-id='$wildcard'></event-details-view>",
                 name: "",
             },
             

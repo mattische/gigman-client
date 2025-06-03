@@ -9,12 +9,13 @@ export default class EventDetails extends HTMLElement {
     this.eventAddress = "";
     this.eventVenueName = "";
     this.eventDescription = "";
+    this.isEditing = false;
 
     this.eventModel = new EventModel();
   }
 
   static get observedAttributes() {
-    return ["event-id"];
+    return ["event-id", "editable"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -22,115 +23,155 @@ export default class EventDetails extends HTMLElement {
       this.eventId = newValue;
       this.loadEventDetails(newValue);
     }
+    
+    if (name === "editable") {
+      this.isEditing = newValue !== null && newValue !== "false";
+    }
   }
 
   async loadEventDetails(eventId) {
-    const data = await this.eventModel.fetchEventDetails(eventId);
-
+    if (!eventId) return;
     
-    this.eventName = data.event_name;
-    this.eventDate = data.event_date;
-    this.eventAddress = data.venue_address;
-    this.eventVenueName = data.venue_name;
-    this.eventDescription = data.event_description;
-    console.log("Event data. eventId: ", this.eventId, ", Name: ", this.eventName);
-    this.renderForm();
+    try {
+      const data = await this.eventModel.fetchEventDetails(eventId);
+      
+      this.eventName = data.event_name;
+      this.eventDate = data.event_date;
+      this.eventAddress = data.venue_address;
+      this.eventVenueName = data.venue_name;
+      this.eventDescription = data.event_description;
+      
+      this.render();
+      
+      // Dispatch event that data is loaded
+      this.dispatchEvent(new CustomEvent('event-loaded', { 
+        detail: { eventId: this.eventId },
+        bubbles: true 
+      }));
+    } catch (error) {
+      this.renderError(error);
+      
+      // Dispatch event that there was an error
+      this.dispatchEvent(new CustomEvent('event-error', { 
+        detail: { error },
+        bubbles: true 
+      }));
+    }
+  }
+  
+  render() {
+    if (this.isEditing) {
+      this.renderForm();
+    } else {
+      this.renderDetails();
+    }
+  }
+  
+  renderDetails() {
+    this.innerHTML = `
+      <div class="event-info single-event">
+        <h3>${this.eventName}</h3>
+        <div class="event-metadata">
+          <p><strong>Date:</strong> ${this.eventDate}</p>
+          <p><strong>Venue:</strong> ${this.eventVenueName}</p>
+          <p><strong>Address:</strong> ${this.eventAddress}</p>
+        </div>
+        ${this.eventDescription ? 
+          `<div class="event-description">
+            <h4>Description</h4>
+            <p>${this.eventDescription}</p>
+          </div>` : ''
+        }
+      </div>
+    `;
     
+    // Emit event that component rendered details
+    this.dispatchEvent(new CustomEvent('details-rendered', { bubbles: true }));
   }
-
-  createInput(type, value = "", classList = [], id = "") {
-    let element = document.createElement("input");
-    element.setAttribute("type", type);
-
-    if (value) {
-      element.setAttribute("value", value);
-    }
-
-    if (classList.length) {
-      element.classList.add(...classList);
-    }
-
-    if (id) {
-      element.setAttribute("id", id);
-    }
-
-    return element;
-  }
-
-  createField(labelText, inputType, inputId, fieldName) {
-    let label = document.createElement("label");
-    label.textContent = labelText;
-    label.setAttribute("for", inputId);
-
-    let input = this.createInput(inputType, "", ["styled-input"], inputId);
-    input.addEventListener("input", (event) => {
-      this[fieldName] = event.target.value;
-    });
-
-    return { label, input };
-  }
-
-  saveInvoiceToLocalStorage(invoice) {
-    let invoices = JSON.parse(localStorage.getItem("invoices")) || [];
-    invoices.push(invoice);
-    localStorage.setItem("invoices", JSON.stringify(invoices));
-  }
-
 
   renderForm() {
+    this.innerHTML = `
+      <form class="event-form">
+        <div class="form-group">
+          <label for="eventName">Event Name:</label>
+          <input type="text" id="eventName" class="styled-input" value="${this.eventName}">
+        </div>
+        
+        <div class="form-group">
+          <label for="eventDate">Date:</label>
+          <input type="date" id="eventDate" class="styled-input" value="${this.eventDate}">
+        </div>
+        
+        <div class="form-group">
+          <label for="eventVenue">Venue:</label>
+          <input type="text" id="eventVenue" class="styled-input" value="${this.eventVenueName}">
+        </div>
+        
+        <div class="form-group">
+          <label for="eventAddress">Address:</label>
+          <input type="text" id="eventAddress" class="styled-input" value="${this.eventAddress}">
+        </div>
+        
+        <div class="form-group">
+          <label for="eventDescription">Description:</label>
+          <textarea id="eventDescription" class="styled-input" rows="4">${this.eventDescription}</textarea>
+        </div>
+        
+        <div class="button-group">
+          <button type="submit" class="button blue-button">Save</button>
+          <button type="button" class="button" id="cancelEdit">Cancel</button>
+        </div>
+      </form>
+    `;
     
-
-    this.innerHTML = "";
-
-    // event name in a h4
-    const headerDiv = document.createElement("div");
-    headerDiv.className = "header";
+    // Add event listeners
+    this.querySelector('form').addEventListener('submit', this.handleSubmit.bind(this));
+    this.querySelector('#cancelEdit').addEventListener('click', this.handleCancel.bind(this));
     
-    const headerTitle = document.createElement("h4");
-    headerTitle.textContent = `${this.eventName}`;
-    headerDiv.appendChild(headerTitle);
+    // Update field values from input as they change
+    this.querySelector('#eventName').addEventListener('input', (e) => this.eventName = e.target.value);
+    this.querySelector('#eventDate').addEventListener('input', (e) => this.eventDate = e.target.value);
+    this.querySelector('#eventVenue').addEventListener('input', (e) => this.eventVenueName = e.target.value);
+    this.querySelector('#eventAddress').addEventListener('input', (e) => this.eventAddress = e.target.value);
+    this.querySelector('#eventDescription').addEventListener('input', (e) => this.eventDescription = e.target.value);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
     
-    this.appendChild(headerDiv);
-
-
-    let form = document.createElement("form");
-
-    let { label: eventNameLabel, input: eventNameInput } = this.createField(
-      "Event",
-      "text",
-      "eventNameInput",
-      "eventName"
-    );
-
-    //let eventNameInput = this.createInput("text", this.eventName, ["styled-input"], "eventNameInput");
-    eventNameInput.value = this.eventName;
-    console.log("Event name input value:", eventNameInput.value);
-
+    const updatedEvent = {
+      event_id: this.eventId,
+      event_name: this.eventName,
+      event_date: this.eventDate,
+      venue_name: this.eventVenueName,
+      venue_address: this.eventAddress,
+      event_description: this.eventDescription
+    };
     
-    let submitButton = this.createInput("submit", "", [
-      "button",
-      "green-button",
-    ]);
-    submitButton.value = "Update event";
-
-    form.appendChild(eventNameLabel);
-    form.appendChild(eventNameInput);
+    // Dispatch event with updated data
+    this.dispatchEvent(new CustomEvent('event-updated', {
+      detail: { event: updatedEvent },
+      bubbles: true
+    }));
     
-    form.appendChild(submitButton);
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const invoice = {
-        orderId: this.orderId,
-        totalPrice: this.totalPrice,
-        creationDate: this.creationDate,
-        dueDate: this.dueDate,
-      };
-
-     //this.saveInvoiceToLocalStorage(invoice);
-      this.innerHTML = `<p class="success">event edited!</p>`;
-    });
-
-    this.appendChild(form);
+    // Switch to display mode
+    this.isEditing = false;
+    this.render();
+  }
+  
+  handleCancel() {
+    this.isEditing = false;
+    this.render();
+    
+    // Dispatch cancel event
+    this.dispatchEvent(new CustomEvent('edit-cancelled', { bubbles: true }));
+  }
+  
+  renderError(error) {
+    this.innerHTML = `
+      <div class="error-message">
+        <p>Error loading event: ${error.message || 'Could not load event details'}</p>
+      </div>
+    `;
   }
 }

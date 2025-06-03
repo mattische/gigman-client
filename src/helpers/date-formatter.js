@@ -80,3 +80,25 @@ export function getPastDatesFromArray(dates) {
     console.log(pastDates);
     return pastDates;
 }
+
+// getTimeFromDateAsString(dateStr) => getTFDAS
+export function getTFDAS(dateStr) { 
+    const date = new Date(dateStr);
+    //const options = { hour: '2-digit', minute: '2-digit', hour12: false };
+    
+    //swedish format
+    const options = { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Stockholm' };
+    // US format
+    // const options = { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/New_York' };
+    try {
+        // Check if date is valid
+        if (isNaN(date.getTime())) {
+            throw new Error("Invalid date string");
+        }
+    }
+    catch (error) {
+        console.error("Error formatting date:", error);
+        return null;
+    }
+    return new Intl.DateTimeFormat('sv-SE', options).format(date);
+}

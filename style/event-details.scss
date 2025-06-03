@@ -1,7 +1,20 @@
 @use 'variables' as *;
 
 .event-details {
-    margin-top: 200px;
-    font-family: $font-body;
+    font-family: $font-header;
+
+    .tab-link {
+        margin-top: 4.5 * $magic-number;
+        margin-bottom: 0.5 * $magic-number;
+        border: none;
+        font-family: $font-body;
+
+        .active {
+            text-decoration: $red;
+            color: $red;
+        }
+    }
+
+
 }
 

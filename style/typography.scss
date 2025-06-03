@@ -46,3 +46,23 @@ p {
     font-size: $body-font-size;
     font-family: $font-body;
 }
+
+a {
+    color: $white;
+    text-decoration: underline $red;
+    transition: text-decoration 0.3s ease;
+}
+
+a:hover {
+    color: $red;
+}
+
+a:visited {
+    color: $white;
+    text-decoration: underline $red;
+}
+
+a:active {
+    color: $green;
+    text-decoration: none;
+}

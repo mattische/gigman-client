@@ -11,14 +11,18 @@ import EventDetails from "./components/event-details.js";
 import NotFound from "./components/not-found.js";
 import EventsView from "./views/events.js";
 import CrewView from "./views/crew.js";
-import EventDetailsView from "./views/event-details.js";
+import EventDetailsView from "./views/event-details-view.js";
 
 customElements.define('router-outlet', Router);
 customElements.define('navigation-outlet', Navigation);
 
-//define components
-customElements.define('event-list', EventList);
-customElements.define('single-event', SingleEvent);
+// Components that don't define themselves
+if (!customElements.get('event-list')) {
+  customElements.define('event-list', EventList);
+}
+if (!customElements.get('single-event')) {
+  customElements.define('single-event', SingleEvent);
+}
 customElements.define('not-found', NotFound);
 customElements.define('crew-list', CrewList);
 customElements.define('event-details', EventDetails);
